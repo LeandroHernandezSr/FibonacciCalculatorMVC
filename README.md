@@ -1,13 +1,13 @@
 # Fibonacci Calculator MVC
 
-Este proyecto implementa un **calculador de números de Fibonacci** utilizando el **patrón de arquitectura Modelo‑Vista‑Controlador (MVC)** en Java.
+Este proyecto implementa un **calculador de números de Fibonacci** utilizando el **patrón de arquitectura Modelo‑Vista‑Controlador (MVC)** orientado a **API REST** en Java.
 
-La idea principal es separar claramente:
-- **Modelo:** lógica del cálculo de Fibonacci  
-- **Vista:** interfaz de usuario (consola o GUI)  
-- **Controlador:** coordina interacciones entre Vista y Modelo
+La idea principal es separar claramente las responsabilidades:
+- **Modelo:** lógica del cálculo de Fibonacci y entidades de dominio  
+- **Controlador:** expone endpoints REST y gestiona las solicitudes HTTP  
+- **Handlers/Services:** encapsulan la lógica de negocio y coordinación entre capas  
 
-Este patrón ayuda a mantener el código **organizado, escalable y fácil de mantener** al separar responsabilidades. :contentReference[oaicite:0]{index=0}
+Esta arquitectura permite tener un código **modular, escalable y fácil de testear**, adaptado a aplicaciones backend sin necesidad de una interfaz gráfica.
 
 ---
 
