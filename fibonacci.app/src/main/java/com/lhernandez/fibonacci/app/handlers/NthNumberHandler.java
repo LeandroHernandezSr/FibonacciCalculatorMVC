@@ -1,7 +1,9 @@
 package com.lhernandez.fibonacci.app.handlers;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.lhernandez.fibonacci.app.dto.ApiResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -32,24 +34,28 @@ public class NthNumberHandler {
         this.saveFibonacciNumberService=saveFibonacciNumberService;
     }
 
-    public ResponseEntity<NthNumberResponseDto>apply(NumberDto dto){
-        Optional<FibonacciEntity>optFibonacciEntity=getFibonacciByNumberService.apply(dto.number());
+    public ResponseEntity<ApiResponseDto<NthNumberResponseDto>>apply(NumberDto dto){
+        try{
+            Optional<FibonacciEntity>optFibonacciEntity=getFibonacciByNumberService.apply(dto.number());
 
-        if (optFibonacciEntity.isPresent()){
-            FibonacciEntity entity=optFibonacciEntity.get();
-            entity.setOccurrences(incrementOccurrenceService.apply(entity.getOccurrences()));
+            if (optFibonacciEntity.isPresent()){
+                FibonacciEntity entity=optFibonacciEntity.get();
+                entity.setOccurrences(incrementOccurrenceService.apply(entity.getOccurrences()));
+                saveFibonacciNumberService.apply(entity);
+                return ResponseEntity.ok(new ApiResponseDto<>(new NthNumberResponseDto(entity.getNthNumber()),"Operation finished successfully"));
+            }
+
+            FibonacciEntity entity=new FibonacciEntity();
+
+            entity.setNumber(dto.number());
+            entity.setNthNumber(calculateNthNumberService.apply(dto.number()));
+            entity.setOccurrences(1);
+
             saveFibonacciNumberService.apply(entity);
-            return ResponseEntity.ok(new NthNumberResponseDto(entity.getNthNumber()));
+
+            return ResponseEntity.ok(new ApiResponseDto<>(new NthNumberResponseDto(entity.getNthNumber()),"Operation finished successfully"));
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(new ApiResponseDto<>(List.of(e.getMessage()),"An error occurred"));
         }
-
-        FibonacciEntity entity=new FibonacciEntity();
-
-        entity.setNumber(dto.number());
-        entity.setNthNumber(calculateNthNumberService.apply(dto.number()));
-        entity.setOccurrences(1);
-
-        saveFibonacciNumberService.apply(entity);
-
-        return ResponseEntity.ok(new NthNumberResponseDto(entity.getNthNumber()));
     }
 }

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
+import com.lhernandez.fibonacci.app.dto.ApiResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,10 +60,10 @@ class NthNumberHandlerTest {
         when(incrementOccurrenceService.apply(2)).thenReturn(3);
         when(saveFibonacciNumberService.apply(existingEntity)).thenReturn(existingEntity);
 
-        ResponseEntity<NthNumberResponseDto> response = handler.apply(numberDto);
+        ResponseEntity<ApiResponseDto<NthNumberResponseDto>> response = handler.apply(numberDto);
 
         assertNotNull(response);
-        assertEquals(55, response.getBody().nthNumber());
+        assertEquals(55, response.getBody().data().nthNumber());
         assertEquals(3, existingEntity.getOccurrences());
 
         verify(getFibonacciByNumberService, times(1)).apply(10);
@@ -78,10 +79,10 @@ class NthNumberHandlerTest {
         when(saveFibonacciNumberService.apply(any(FibonacciEntity.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        ResponseEntity<NthNumberResponseDto> response = handler.apply(numberDto);
+        ResponseEntity<ApiResponseDto<NthNumberResponseDto>> response = handler.apply(numberDto);
 
         assertNotNull(response);
-        assertEquals(55, response.getBody().nthNumber());
+        assertEquals(55, response.getBody().data().nthNumber());
 
         verify(getFibonacciByNumberService, times(1)).apply(10);
         verify(calculateNthNumberService, times(1)).apply(10);

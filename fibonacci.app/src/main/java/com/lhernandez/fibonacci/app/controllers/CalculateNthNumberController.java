@@ -1,5 +1,6 @@
 package com.lhernandez.fibonacci.app.controllers;
 
+import com.lhernandez.fibonacci.app.dto.ApiResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -34,7 +35,7 @@ public class CalculateNthNumberController {
             description = "Fibonacci number calculated successfully",
             content = @Content(schema = @Schema(implementation = NthNumberResponseDto.class))
     )
-    public ResponseEntity<NthNumberResponseDto>calculate(@RequestBody NumberDto dto){
+    public ResponseEntity<ApiResponseDto<NthNumberResponseDto>>calculate(@RequestBody NumberDto dto){
         return this.handler.apply(dto);
     }
 

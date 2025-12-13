@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.List;
 
+import com.lhernandez.fibonacci.app.dto.ApiResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,17 +38,19 @@ class GetOccurrencesControllerTest {
 
     @Test
     void getOccurences_ShouldCallHandlerAndReturnResponse() {
-        ResponseEntity<List<GetOccurrencesDto>> expectedResponse = ResponseEntity.ok(dtoList);
+        ResponseEntity<ApiResponseDto<List<GetOccurrencesDto>>> expectedResponse = ResponseEntity.ok(
+                new ApiResponseDto<>(dtoList,"Operation finished successfully")
+        );
 
         when(handler.apply()).thenReturn(expectedResponse);
 
-        ResponseEntity<List<GetOccurrencesDto>> response = controller.getOccurences();
+        ResponseEntity<ApiResponseDto<List<GetOccurrencesDto>>> response = controller.getOccurences();
 
         assertNotNull(response);
         assertEquals(expectedResponse, response);
-        assertEquals(2, response.getBody().size());
-        assertEquals(5, response.getBody().get(0).number());
-        assertEquals(2, response.getBody().get(0).occurrences());
+        assertEquals(2, response.getBody().data().size());
+        assertEquals(5, response.getBody().data().get(0).number());
+        assertEquals(2, response.getBody().data().get(0).occurrences());
 
         verify(handler, times(1)).apply();
     }

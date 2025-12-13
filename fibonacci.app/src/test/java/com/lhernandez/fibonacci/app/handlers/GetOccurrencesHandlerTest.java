@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.List;
 
+import com.lhernandez.fibonacci.app.dto.ApiResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,16 +46,16 @@ class GetOccurrencesHandlerTest {
     void apply_WhenServiceReturnsEntities_ShouldReturnListOfDTOs() {
         when(getOccurrenceService.apply()).thenReturn(entities);
 
-        ResponseEntity<List<GetOccurrencesDto>> response = handler.apply();
+        ResponseEntity<ApiResponseDto<List<GetOccurrencesDto>>> response = handler.apply();
 
         assertNotNull(response);
-        assertEquals(2, response.getBody().size());
+        assertEquals(2, response.getBody().data().size());
 
-        GetOccurrencesDto dto1 = response.getBody().get(0);
+        GetOccurrencesDto dto1 = response.getBody().data().get(0);
         assertEquals(5, dto1.number());
         assertEquals(2, dto1.occurrences());
 
-        GetOccurrencesDto dto2 = response.getBody().get(1);
+        GetOccurrencesDto dto2 = response.getBody().data().get(1);
         assertEquals(8, dto2.number());
         assertEquals(1, dto2.occurrences());
 
@@ -65,10 +66,10 @@ class GetOccurrencesHandlerTest {
     void apply_WhenServiceReturnsEmptyList_ShouldReturnEmptyDTOList() {
         when(getOccurrenceService.apply()).thenReturn(List.of());
 
-        ResponseEntity<List<GetOccurrencesDto>> response = handler.apply();
+        ResponseEntity<ApiResponseDto<List<GetOccurrencesDto>>> response = handler.apply();
 
         assertNotNull(response);
-        assertTrue(response.getBody().isEmpty());
+        assertTrue(response.getBody().data().isEmpty());
         verify(getOccurrenceService, times(1)).apply();
     }
 }

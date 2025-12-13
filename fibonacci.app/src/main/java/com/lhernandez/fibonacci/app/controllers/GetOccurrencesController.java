@@ -2,6 +2,7 @@ package com.lhernandez.fibonacci.app.controllers;
 
 import java.util.List;
 
+import com.lhernandez.fibonacci.app.dto.ApiResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class GetOccurrencesController {
             description = "Returns a list of Fibonacci numbers sorted by the number of times they were requested."
     )
     @ApiResponse(responseCode = "200", description = "Occurrences retrieved successfully")
-    public ResponseEntity<List<GetOccurrencesDto>>getOccurences(){
+    public ResponseEntity<ApiResponseDto<List<GetOccurrencesDto>>>getOccurences(){
         return this.handler.apply();
     }
     

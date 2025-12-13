@@ -3,6 +3,7 @@ package com.lhernandez.fibonacci.app.controllers;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.lhernandez.fibonacci.app.dto.ApiResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,15 +35,15 @@ class CalculateNthNumberControllerTest {
     @Test
     void calculate_ShouldCallHandlerAndReturnResponse() {
         NthNumberResponseDto responseDto = new NthNumberResponseDto(55L);
-        ResponseEntity<NthNumberResponseDto> expectedResponse = ResponseEntity.ok(responseDto);
+        ResponseEntity<ApiResponseDto<NthNumberResponseDto>> expectedResponse = ResponseEntity.ok(new ApiResponseDto<>(responseDto,"Operation finished successfully"));
 
         when(handler.apply(numberDto)).thenReturn(expectedResponse);
 
-        ResponseEntity<NthNumberResponseDto> response = controller.calculate(numberDto);
+        ResponseEntity<ApiResponseDto<NthNumberResponseDto>> response = controller.calculate(numberDto);
 
         assertNotNull(response);
         assertEquals(expectedResponse, response);
-        assertEquals(55, response.getBody().nthNumber());
+        assertEquals(55, response.getBody().data().nthNumber());
 
         verify(handler, times(1)).apply(numberDto);
     }
