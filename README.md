@@ -34,3 +34,21 @@ La estructura del proyecto sigue este esquema, con responsabilidades claras por 
 
 > Cada capa tiene una responsabilidad específica, lo que facilita **mantenimiento, testing y escalabilidad**.
 
+## 🌐 Endpoints del Servicio
+
+* El servicio está disponible en el puerto `8085` de forma local (`http://localhost:8085`).
+
+* El servicio está disponible en el puerto `8085` en Cloud (`http://54.94.97.140:8085`).
+
+| Endpoint | Método | Parámetro | Descripción |
+| :--- | :--- | :--- | :--- |
+| `/fibonacci/get-nth-number` | `POST` | **number** (obligatorio) | Retorna el **$n$-ésimo número** de la secuencia de Fibonacci.|
+| `/fibonacci/occurrences` | `GET` | *Ninguno* | Retorna una lista ordenada de mayor a menor contando las **ocurrencias** de cada número de Fibonacci consultado previamente. |
+
+### 📖 Interfaz de Usuario de Swagger (OpenAPI)
+
+Accede a la documentación interactiva para explorar y probar todos los endpoints:
+
+* **URL:** `http://localhost:8085/swagger-ui.html`
+* **Cloud:** `http://54.94.97.140:8085/swagger-ui/index.html`
+
