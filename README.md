@@ -49,6 +49,6 @@ La estructura del proyecto sigue este esquema, con responsabilidades claras por 
 
 Accede a la documentación interactiva para explorar y probar todos los endpoints:
 
-* **URL:** `http://localhost:8085/swagger-ui.html`
+* **Local:** `http://localhost:8085/swagger-ui.html`
 * **Cloud:** `http://54.94.97.140:8085/swagger-ui/index.html`
 
