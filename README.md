@@ -34,6 +34,23 @@ La estructura del proyecto sigue este esquema, con responsabilidades claras por 
 
 > Cada capa tiene una responsabilidad específica, lo que facilita **mantenimiento, testing y escalabilidad**.
 
+---
+
+## 📦 Caché de Fibonacci
+
+Se implementó un **sistema de caching** para optimizar la búsqueda de números de Fibonacci ya calculados.  
+Esto permite que las consultas repetidas no lleguen a la base de datos, mejorando el rendimiento.
+
+### Tecnologías y dependencias utilizadas
+
+- **Spring Boot Cache** (`spring-boot-starter-cache`)  
+  Permite usar `@Cacheable`, `@CacheEvict` y `@CachePut` en la capa de aplicación.
+
+- **Caffeine** (`com.github.ben-manes.caffeine:caffeine`)  
+  Motor de cache rápido y en memoria, configurable con TTL y tamaño máximo.
+
+---
+
 ## 🌐 Endpoints del Servicio
 
 * El servicio está disponible en el puerto `8085` de forma local (`http://localhost:8085`).
