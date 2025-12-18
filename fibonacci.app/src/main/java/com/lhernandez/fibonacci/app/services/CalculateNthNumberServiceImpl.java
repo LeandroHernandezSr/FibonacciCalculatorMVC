@@ -2,16 +2,11 @@ package com.lhernandez.fibonacci.app.services;
 
 
 import org.springframework.stereotype.Service;
-import org.springframework.cache.annotation.Cacheable;
 
 @Service
 public class CalculateNthNumberServiceImpl implements CalculateNthNumberService{
 
-    @Override
-    @Cacheable(
-        cacheNames = "fibonacci-by-number",
-        key = "#number"
-    )   
+    @Override 
     public Long apply(Integer number) {
 
         if (number == 0L) return 0L;
